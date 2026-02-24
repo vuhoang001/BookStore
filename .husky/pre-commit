@@ -1,0 +1,10 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+dotnet test
+dotnet format --verify-no-changes
+gitleaks protect --staged --verbose || exit 1
+
+echo "Running pre-commit checks..."
+
+dotnet husky run
