@@ -1,4 +1,4 @@
-namespace BuildingBlocks.SharedKernel.SeedWork;
+﻿namespace BuildingBlocks.SharedKernel.SeedWork;
 
 public abstract class Entity : HasDomainEvents
 {

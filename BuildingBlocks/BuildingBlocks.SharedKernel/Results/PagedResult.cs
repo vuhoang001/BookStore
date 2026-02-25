@@ -1,4 +1,4 @@
-namespace BuildingBlocks.SharedKernel.Results;
+﻿namespace BuildingBlocks.SharedKernel.Results;
 
 public sealed class PagedResult<T> : List<T>
 {
@@ -7,12 +7,12 @@ public sealed class PagedResult<T> : List<T>
     public long TotalItems { get; }
     public long TotalPages { get; }
     public bool HasPreviousPage => PageIndex > 1;
-    public bool HasNextPage => PageIndex     < TotalPages;
+    public bool HasNextPage => PageIndex < TotalPages;
 
     public PagedResult(IReadOnlyList<T> items, int pageIndex, int pageSize, long totalItems)
     {
-        PageIndex  = pageIndex;
-        PageSize   = pageSize;
+        PageIndex = pageIndex;
+        PageSize = pageSize;
         TotalItems = totalItems;
         TotalPages = (long)Math.Ceiling((double)TotalItems / PageSize);
 

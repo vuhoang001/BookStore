@@ -1,6 +1,6 @@
-namespace BuildingBlocks.SharedKernel.SeedWork;
+﻿namespace BuildingBlocks.SharedKernel.SeedWork;
 
 public class AuditableEntity
 {
-    
+
 }

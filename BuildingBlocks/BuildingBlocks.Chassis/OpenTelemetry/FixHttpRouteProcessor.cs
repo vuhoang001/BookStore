@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using OpenTelemetry;
 
 namespace BuildingBlocks.Chassis.OpenTelemetry;
@@ -6,10 +6,10 @@ namespace BuildingBlocks.Chassis.OpenTelemetry;
 public class FixHttpRouteProcessor : BaseProcessor<Activity>
 {
     private const string HttpRequestMethodTag = "http.request.method";
-    private const string UrlPathTag           = "url.path";
-    private const string HttpRouteTag         = "http.route";
-    private const string NameTag              = "name";
-    private const string RequestNameTag       = "request.name";
+    private const string UrlPathTag = "url.path";
+    private const string HttpRouteTag = "http.route";
+    private const string NameTag = "name";
+    private const string RequestNameTag = "request.name";
 
     public override void OnEnd(Activity activity)
     {
@@ -19,7 +19,7 @@ public class FixHttpRouteProcessor : BaseProcessor<Activity>
         }
 
         var method = activity.GetTagItem(HttpRequestMethodTag)?.ToString();
-        var path   = activity.GetTagItem(UrlPathTag)?.ToString();
+        var path = activity.GetTagItem(UrlPathTag)?.ToString();
 
         if (string.IsNullOrWhiteSpace(method) || string.IsNullOrWhiteSpace(path))
         {

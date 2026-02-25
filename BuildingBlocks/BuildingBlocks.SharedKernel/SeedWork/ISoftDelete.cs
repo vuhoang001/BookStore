@@ -1,8 +1,8 @@
-namespace BuildingBlocks.SharedKernel.SeedWork;
+﻿namespace BuildingBlocks.SharedKernel.SeedWork;
 
 public interface ISoftDelete
 {
-   bool IsDeleted { get; set; }
-   void Delete();
+    bool IsDeleted { get; set; }
+    void Delete();
 
 }

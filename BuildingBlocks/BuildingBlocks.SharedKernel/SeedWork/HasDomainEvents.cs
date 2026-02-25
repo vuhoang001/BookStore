@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace BuildingBlocks.SharedKernel.SeedWork;
@@ -6,7 +6,7 @@ namespace BuildingBlocks.SharedKernel.SeedWork;
 public class HasDomainEvents : IHasDomainEvents
 {
     private readonly List<DomainEvent> _domainEvents = [];
-    [NotMapped] [JsonIgnore] public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+    [NotMapped][JsonIgnore] public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
     protected void RegisterDomainEvent(DomainEvent domainEvent)
     {

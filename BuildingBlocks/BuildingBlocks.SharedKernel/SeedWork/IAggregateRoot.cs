@@ -1,3 +1,3 @@
-namespace BuildingBlocks.SharedKernel.SeedWork;
+﻿namespace BuildingBlocks.SharedKernel.SeedWork;
 
 public interface IAggregateRoot;

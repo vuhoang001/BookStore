@@ -1,4 +1,4 @@
-using BuildingBlocks.SharedKernel.Helpers;
+﻿using BuildingBlocks.SharedKernel.Helpers;
 using Mediator;
 
 namespace BuildingBlocks.SharedKernel.SeedWork;

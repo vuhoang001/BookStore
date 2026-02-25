@@ -1,6 +1,6 @@
-namespace BuildingBlocks.SharedKernel.SeedWork;
+﻿namespace BuildingBlocks.SharedKernel.SeedWork;
 
 public interface IHasDomainEvents
 {
-   IReadOnlyCollection<DomainEvent> DomainEvents { get; }
+    IReadOnlyCollection<DomainEvent> DomainEvents { get; }
 }

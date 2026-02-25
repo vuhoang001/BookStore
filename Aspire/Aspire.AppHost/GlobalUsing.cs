@@ -1,1 +1,1 @@
-global using BuildingBlocks.Constants.Aspire;
+﻿global using BuildingBlocks.Constants.Aspire;
