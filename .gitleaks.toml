@@ -2,11 +2,3 @@ title = "Custom GitLeaks Config"
 
 [extend]
 useDefault = true
-
-[allowlist]
-description = "Ignore appsettings files"
-paths = [
-    "appsettings.json",
-    "appsettings.Development.json",
-    "appsettings.*.json"
-]
