@@ -1,4 +1,4 @@
-using Asp.Versioning.Builder;
+﻿using Asp.Versioning.Builder;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,7 +15,7 @@ public static class RegisterEndpointExtensions
                                               classes
                                                   .AssignableTo<IEndpoint>()
                                                   .Where(typeInfo => typeInfo is
-                                                             { IsAbstract: false, IsInterface: false })
+                                                  { IsAbstract: false, IsInterface: false })
                               )
                               .AsImplementedInterfaces()
                               .WithTransientLifetime()

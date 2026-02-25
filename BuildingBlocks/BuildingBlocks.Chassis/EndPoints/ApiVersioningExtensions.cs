@@ -1,4 +1,4 @@
-using Asp.Versioning;
+﻿using Asp.Versioning;
 using BuildingBlocks.Constants.Core;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,11 +12,11 @@ public static class Extension
             .AddApiVersioning(options =>
             {
                 options.DefaultApiVersion = Versions.V1;
-                options.ApiVersionReader  = new UrlSegmentApiVersionReader();
+                options.ApiVersionReader = new UrlSegmentApiVersionReader();
             })
             .AddApiExplorer(options =>
             {
-                options.GroupNameFormat           = "'v'V";
+                options.GroupNameFormat = "'v'V";
                 options.SubstituteApiVersionInUrl = true;
             });
     }
