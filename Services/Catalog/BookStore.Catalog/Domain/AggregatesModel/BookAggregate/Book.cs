@@ -1,4 +1,5 @@
-using BookStore.Catalog.Domain.AggregatesModel.CategoryAggregate;
+﻿using BookStore.Catalog.Domain.AggregatesModel.CategoryAggregate;
+using BookStore.Catalog.Domain.AggregatesModel.PublisherAggregate;
 using BookStore.Catalog.Domain.Events;
 
 namespace BookStore.Catalog.Domain.AggregatesModel.BookAggregate;
@@ -15,13 +16,13 @@ public sealed class Book() : AuditableEntity, IAggregateRoot, ISoftDelete
         Guid[] authorIds
     ) : this()
     {
-        Name         = !string.IsNullOrWhiteSpace(name) ? name : throw new ArgumentNullException(nameof(name));
-        Description  = description;
-        Image        = image;
-        Price        = new Price(price, priceSale);
-        Status       = Status.InStock;
-        CategoryId   = categoryId;
-        PublisherId  = publisherId;
+        Name = !string.IsNullOrWhiteSpace(name) ? name : throw new ArgumentNullException(nameof(name));
+        Description = description;
+        Image = image;
+        Price = new Price(price, priceSale);
+        Status = Status.InStock;
+        CategoryId = categoryId;
+        PublisherId = publisherId;
         _bookAuthors = [.. authorIds.Select(authorId => new BookAuthor(authorId))];
     }
 
@@ -44,6 +45,8 @@ public sealed class Book() : AuditableEntity, IAggregateRoot, ISoftDelete
 
     public Guid? PublisherId { get; private set; }
 
+    public Publisher? Publisher { get; private set; } = null!;
+
     public IReadOnlyCollection<BookAuthor> BookAuthors => _bookAuthors.AsReadOnly();
 
 
@@ -65,7 +68,7 @@ public sealed class Book() : AuditableEntity, IAggregateRoot, ISoftDelete
         Description = !string.IsNullOrWhiteSpace(description)
             ? description
             : throw new CatalogDomainException("Book description is required.");
-        CategoryId  = categoryId;
+        CategoryId = categoryId;
         PublisherId = publisherId;
         _bookAuthors.AddRange(authorIds.Select(authorId => new BookAuthor(authorId)));
         RegisterDomainEvent(new BookCreatedEvent(this));
@@ -83,17 +86,17 @@ public sealed class Book() : AuditableEntity, IAggregateRoot, ISoftDelete
     )
     {
         var isChanged =
-            string.Compare(Name, name, StringComparison.OrdinalIgnoreCase)                  != 0
+            string.Compare(Name, name, StringComparison.OrdinalIgnoreCase) != 0
             || string.Compare(Description, description, StringComparison.OrdinalIgnoreCase) != 0;
 
         Name = !string.IsNullOrWhiteSpace(name)
             ? name
             : throw new CatalogDomainException("Book name is required.");
         Description = description;
-        Price       = new(price, priceSale);
-        CategoryId  = categoryId;
+        Price = new(price, priceSale);
+        CategoryId = categoryId;
         PublisherId = publisherId;
-        Image       = image;
+        Image = image;
         _bookAuthors.Clear();
         _bookAuthors.AddRange(authorIds.Select(authorId => new BookAuthor(authorId)));
 
@@ -110,7 +113,7 @@ public sealed class Book() : AuditableEntity, IAggregateRoot, ISoftDelete
         if (TotalReviews <= 1)
         {
             AverageRating = 0;
-            TotalReviews  = 0;
+            TotalReviews = 0;
         }
         else
         {
@@ -122,5 +125,5 @@ public sealed class Book() : AuditableEntity, IAggregateRoot, ISoftDelete
         return this;
     }
 
-    
+
 }

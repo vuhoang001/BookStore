@@ -1,4 +1,4 @@
-using BookStore.Catalog.Domain.AggregatesModel.AuthorAggregate;
+﻿using BookStore.Catalog.Domain.AggregatesModel.AuthorAggregate;
 
 namespace BookStore.Catalog.Domain.AggregatesModel.BookAggregate;
 

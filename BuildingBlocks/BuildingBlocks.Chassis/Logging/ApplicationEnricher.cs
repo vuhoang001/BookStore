@@ -1,4 +1,4 @@
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using BuildingBlocks.Constants.Other;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Diagnostics.Enrichment;

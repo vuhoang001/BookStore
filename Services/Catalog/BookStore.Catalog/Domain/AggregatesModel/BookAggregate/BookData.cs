@@ -1,4 +1,4 @@
-namespace BookStore.Catalog.Domain.AggregatesModel.BookAggregate;
+﻿namespace BookStore.Catalog.Domain.AggregatesModel.BookAggregate;
 
 [ExcludeFromCodeCoverage]
 public sealed class BookData : List<Book>

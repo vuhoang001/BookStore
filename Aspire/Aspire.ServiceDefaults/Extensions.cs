@@ -53,6 +53,8 @@ public static class Extensions
     public static IHostApplicationBuilder ConfigureOpenTelemetry(this IHostApplicationBuilder builder)
     {
         AddLogging(builder);
+
+        builder.Services.AddHttpContextAccessor();
         builder.Services.AddOpenTelemetry()
             .WithMetrics(metrics =>
             {

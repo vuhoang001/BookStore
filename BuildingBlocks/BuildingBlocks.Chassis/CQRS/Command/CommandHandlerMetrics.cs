@@ -1,15 +1,14 @@
 ﻿using System.Diagnostics.Metrics;
-using BuildingBlocks.Chassis.OpenTelemetry.ActivityScope;
 
-namespace BuildingBlocks.Chassis.CQRS;
+namespace BuildingBlocks.Chassis.CQRS.Command;
 
 public class CommandHandlerMetrics : IDisposable
 {
     private readonly UpDownCounter<long> _activeEventHandlingCounter;
-    private readonly Histogram<double>   _eventHandlingDuration;
-    private readonly Meter               _meter;
-    private readonly TimeProvider        _timeProvider;
-    private readonly Counter<long>       _totalCommandsNumber;
+    private readonly Histogram<double> _eventHandlingDuration;
+    private readonly Meter _meter;
+    private readonly TimeProvider _timeProvider;
+    private readonly Counter<long> _totalCommandsNumber;
 
     public CommandHandlerMetrics(IMeterFactory meterFactory, TimeProvider timeProvider)
     {

@@ -1,4 +1,4 @@
-namespace BuildingBlocks.Chassis.Specification.Builder;
+﻿namespace BuildingBlocks.Chassis.Specification.Builder;
 
 public interface ISpecificationBuilder<T>
     where T : class

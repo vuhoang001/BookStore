@@ -1,4 +1,4 @@
-namespace BookStore.Catalog.Domain.AggregatesModel.PublisherAggregate;
+﻿namespace BookStore.Catalog.Domain.AggregatesModel.PublisherAggregate;
 
 public class Publisher() : Entity, IAggregateRoot
 {

@@ -1,4 +1,4 @@
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using BuildingBlocks.Chassis.Specification.Expressions;
 
 namespace BuildingBlocks.Chassis.Specification.Builder;

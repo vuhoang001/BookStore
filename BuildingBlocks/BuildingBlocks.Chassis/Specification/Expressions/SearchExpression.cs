@@ -1,4 +1,4 @@
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 namespace BuildingBlocks.Chassis.Specification.Expressions;
 
@@ -18,8 +18,8 @@ public sealed class SearchExpression<T>
             throw new ArgumentException("Search term cannot be null or empty.", nameof(searchTerm));
         }
 
-        Selector    = selector;
-        SearchTerm  = searchTerm;
+        Selector = selector;
+        SearchTerm = searchTerm;
         SearchGroup = searchGroup;
     }
 

@@ -1,4 +1,4 @@
-namespace BookStore.Catalog.Domain.AggregatesModel.PublisherAggregate;
+﻿namespace BookStore.Catalog.Domain.AggregatesModel.PublisherAggregate;
 
 [ExcludeFromCodeCoverage]
 public sealed class PublisherData : List<Publisher>

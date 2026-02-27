@@ -1,4 +1,4 @@
-namespace BuildingBlocks.Constants.Other;
+﻿namespace BuildingBlocks.Constants.Other;
 
 public static class LoggingConstant
 {

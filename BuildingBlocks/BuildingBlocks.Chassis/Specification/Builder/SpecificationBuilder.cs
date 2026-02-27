@@ -1,4 +1,4 @@
-namespace BuildingBlocks.Chassis.Specification.Builder;
+﻿namespace BuildingBlocks.Chassis.Specification.Builder;
 
 internal class SpecificationBuilder<T>(Specification<T> specification) : ISpecificationBuilder<T> where T : class
 {

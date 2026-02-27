@@ -1,4 +1,4 @@
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 namespace BuildingBlocks.Chassis.Specification.Expressions;
 
@@ -8,19 +8,19 @@ public class IncludeExpression
     {
         _ = expression ?? throw new ArgumentNullException(nameof(expression));
 
-        LambdaExpression     = expression;
+        LambdaExpression = expression;
         PreviousPropertyType = null;
-        Type                 = IncludeType.Include;
+        Type = IncludeType.Include;
     }
 
     public IncludeExpression(LambdaExpression expression, Type previousPropertyType)
     {
-        _ = expression           ?? throw new ArgumentNullException(nameof(expression));
+        _ = expression ?? throw new ArgumentNullException(nameof(expression));
         _ = previousPropertyType ?? throw new ArgumentNullException(nameof(previousPropertyType));
 
-        LambdaExpression     = expression;
+        LambdaExpression = expression;
         PreviousPropertyType = previousPropertyType;
-        Type                 = IncludeType.ThenInclude;
+        Type = IncludeType.ThenInclude;
     }
 
     public LambdaExpression LambdaExpression { get; }

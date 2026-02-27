@@ -33,9 +33,9 @@ public static class SearchExtension
         SearchExpression<T> searchExpression)
         where T : class
     {
-        var param        = searchExpression.Selector.Parameters[0];
+        var param = searchExpression.Selector.Parameters[0];
         var selectorExpr = searchExpression.Selector.Body;
-        var patternExpr  = StringAsExpression(searchExpression.SearchTerm);
+        var patternExpr = StringAsExpression(searchExpression.SearchTerm);
 
         var likeExpr = Expression.Call(
             null,
@@ -55,9 +55,9 @@ public static class SearchExtension
         ReadOnlySpan<SearchExpression<T>> searchExpressions)
         where T : class
     {
-        Expression?               combinedExpr = null;
-        ParameterExpression?      mainParam    = null;
-        ParameterReplacerVisitor? visitor      = null;
+        Expression? combinedExpr = null;
+        ParameterExpression? mainParam = null;
+        ParameterReplacerVisitor? visitor = null;
 
         foreach (var searchExpression in searchExpressions)
         {

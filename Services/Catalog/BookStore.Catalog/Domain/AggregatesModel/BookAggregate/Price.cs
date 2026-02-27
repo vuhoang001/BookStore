@@ -1,4 +1,4 @@
-using BookStore.Catalog.Exceptions;
+﻿using BookStore.Catalog.Exceptions;
 using BuildingBlocks.SharedKernel.SeedWork;
 
 namespace BookStore.Catalog.Domain.AggregatesModel.BookAggregate;
@@ -12,8 +12,8 @@ public sealed class Price() : ValueObject
         DiscountPrice = ValidateDiscountPrice(discountPrice, OriginalPrice);
     }
 
-    private decimal OriginalPrice { get; }
-    private decimal? DiscountPrice { get; }
+    public decimal OriginalPrice { get; }
+    public decimal? DiscountPrice { get; }
 
     /// <summary>
     /// Validates that the original price is non-negative.

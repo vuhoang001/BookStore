@@ -1,4 +1,4 @@
-namespace BookStore.Catalog.Domain.AggregatesModel.CategoryAggregate;
+﻿namespace BookStore.Catalog.Domain.AggregatesModel.CategoryAggregate;
 
 public sealed class CategoryData : List<Category>
 {

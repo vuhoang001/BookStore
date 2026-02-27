@@ -1,9 +1,9 @@
-
+﻿
 namespace BookStore.Catalog.Domain.AggregatesModel.BookAggregate;
 
 [JsonConverter(typeof(JsonStringEnumConverter<Status>))]
 public enum Status : byte
 {
-    [Description("In Stock")]     InStock    = 0,
+    [Description("In Stock")] InStock = 0,
     [Description("Out of Stock")] OutOfStock = 1,
 }

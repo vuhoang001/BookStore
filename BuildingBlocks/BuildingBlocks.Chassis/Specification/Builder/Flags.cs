@@ -1,4 +1,4 @@
-namespace BuildingBlocks.Chassis.Specification.Builder;
+﻿namespace BuildingBlocks.Chassis.Specification.Builder;
 
 public static partial class SpecificationBuilderExtensions
 {

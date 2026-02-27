@@ -69,23 +69,23 @@ public sealed class IncludeEvaluator : IEvaluator
             switch (includeExpression.Type)
             {
                 case IncludeType.Include:
-                {
-                    var key = new CacheKey(typeof(T), lambdaExpr.ReturnType, null);
-                    var include = _cache.GetOrAdd(key, CreateIncludeDelegate);
-                    query = (IQueryable<T>)include(query, lambdaExpr);
-                    break;
-                }
+                    {
+                        var key = new CacheKey(typeof(T), lambdaExpr.ReturnType, null);
+                        var include = _cache.GetOrAdd(key, CreateIncludeDelegate);
+                        query = (IQueryable<T>)include(query, lambdaExpr);
+                        break;
+                    }
                 case IncludeType.ThenInclude:
-                {
-                    var key = new CacheKey(
-                        typeof(T),
-                        lambdaExpr.ReturnType,
-                        includeExpression.PreviousPropertyType
-                    );
-                    var include = _cache.GetOrAdd(key, CreateThenIncludeDelegate);
-                    query = (IQueryable<T>)include(query, lambdaExpr);
-                    break;
-                }
+                    {
+                        var key = new CacheKey(
+                            typeof(T),
+                            lambdaExpr.ReturnType,
+                            includeExpression.PreviousPropertyType
+                        );
+                        var include = _cache.GetOrAdd(key, CreateThenIncludeDelegate);
+                        query = (IQueryable<T>)include(query, lambdaExpr);
+                        break;
+                    }
                 default:
                     throw new ArgumentOutOfRangeException(
                         nameof(includeExpression.Type),

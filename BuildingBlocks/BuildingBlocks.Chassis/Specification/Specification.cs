@@ -1,20 +1,20 @@
-using BuildingBlocks.Chassis.Specification.Builder;
+﻿using BuildingBlocks.Chassis.Specification.Builder;
 using BuildingBlocks.Chassis.Specification.Expressions;
 
 namespace BuildingBlocks.Chassis.Specification;
 
 public class Specification<T> : ISpecification<T> where T : class
 {
-    private const int                        DefaultCapacityWhere         = 2;
-    private const int                        DefaultCapacitySearch        = 2;
-    private const int                        DefaultCapacityOrder         = 2;
-    private const int                        DefaultCapacityInclude       = 2;
-    private const int                        DefaultCapacityIncludeString = 1;
-    private       List<IncludeExpression>?   _includeExpressions;
-    private       List<string>?              _includeStrings;
-    private       List<OrderExpression<T>>?  _orderExpressions;
-    private       List<SearchExpression<T>>? _searchExpressions;
-    private       List<WhereExpression<T>>?  _whereExpressions;
+    private const int DefaultCapacityWhere = 2;
+    private const int DefaultCapacitySearch = 2;
+    private const int DefaultCapacityOrder = 2;
+    private const int DefaultCapacityInclude = 2;
+    private const int DefaultCapacityIncludeString = 1;
+    private List<IncludeExpression>? _includeExpressions;
+    private List<string>? _includeStrings;
+    private List<OrderExpression<T>>? _orderExpressions;
+    private List<SearchExpression<T>>? _searchExpressions;
+    private List<WhereExpression<T>>? _whereExpressions;
     protected ISpecificationBuilder<T> Query => new SpecificationBuilder<T>(this);
 
 

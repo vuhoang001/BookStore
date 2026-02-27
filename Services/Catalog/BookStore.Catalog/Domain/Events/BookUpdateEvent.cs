@@ -1,4 +1,4 @@
-using BookStore.Catalog.Domain.AggregatesModel.BookAggregate;
+﻿using BookStore.Catalog.Domain.AggregatesModel.BookAggregate;
 
 namespace BookStore.Catalog.Domain.Events;
 

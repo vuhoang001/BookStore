@@ -1,4 +1,4 @@
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 namespace BuildingBlocks.Chassis.Specification.Expressions;
 
@@ -8,7 +8,7 @@ public class OrderExpression<T> where T : class
     {
         _ = keySelector ?? throw new ArgumentNullException(nameof(keySelector));
         KeySelector = keySelector;
-        OrderType   = orderType;
+        OrderType = orderType;
     }
     public Expression<Func<T, object?>> KeySelector { get; }
     public OrderType OrderType { get; }

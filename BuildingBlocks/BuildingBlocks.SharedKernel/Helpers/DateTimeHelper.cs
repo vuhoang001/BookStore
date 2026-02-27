@@ -2,15 +2,10 @@
 
 public static class DateTimeHelper
 {
-    public const string SqlUtcNow = "NOW() AT TIME ZONE 'UTC'";
+    public const string SqlUtcNow = "GETUTCDATE()";
 
     public static DateTime UtcNow()
     {
-        return ToDateTime(DateTimeOffset.Now.UtcDateTime, DateTimeKind.Utc);
-    }
-
-    private static DateTime ToDateTime(this DateTime dateTime, DateTimeKind kind)
-    {
-        return DateTime.SpecifyKind(dateTime, kind);
+        return DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc);
     }
 }

@@ -1,4 +1,4 @@
-using BuildingBlocks.Chassis.Specification.Expressions;
+﻿using BuildingBlocks.Chassis.Specification.Expressions;
 
 namespace BuildingBlocks.Chassis.Specification;
 
