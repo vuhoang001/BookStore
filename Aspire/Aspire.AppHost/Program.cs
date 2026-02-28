@@ -1,10 +1,8 @@
 ﻿using BuildingBlocks.Constants.Core;
-using DotNetEnv;
 
-Env.Load();
 var builder = DistributedApplication.CreateBuilder(args);
 
-var password = builder.AddParameter("sql-password", secret: true);
+var password = builder.AddParameter("sql-password", secret: true, value:"1234@Abcd");
 
 var sql = builder.AddSqlServer(Components.SqlServer, password)
     .WithEndpoint(Network.Tcp, e =>
@@ -14,7 +12,7 @@ var sql = builder.AddSqlServer(Components.SqlServer, password)
     })
     .WithLifetime(ContainerLifetime.Persistent);
 
-var catalogDb = sql.AddDatabase("CatalogDb");
+var catalogDb = sql.AddDatabase(Components.Database.Catalog);
 
 builder.AddProject<Projects.BookStore_Catalog>(Services.Catalog)
     .WithReference(catalogDb)

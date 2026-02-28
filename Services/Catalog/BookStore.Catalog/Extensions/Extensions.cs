@@ -16,12 +16,9 @@ internal static class Extensions
         services.AddMediator((MediatorOptions options) => options.ServiceLifetime = ServiceLifetime.Scoped
             )
             .AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
-        // .AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-
 
 
         services.AddVersioning();
         services.AddEndpoints(typeof(ICatalogApiMarker));
-        // services.AddDefaultOpenApi();
     }
 }

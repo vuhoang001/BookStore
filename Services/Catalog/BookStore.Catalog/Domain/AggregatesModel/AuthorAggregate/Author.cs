@@ -1,5 +1,4 @@
-﻿
-using BookStore.Catalog.Domain.AggregatesModel.BookAggregate;
+﻿using BookStore.Catalog.Domain.Events;
 
 namespace BookStore.Catalog.Domain.AggregatesModel.AuthorAggregate;
 
@@ -13,10 +12,11 @@ public sealed class Author() : Entity, IAggregateRoot
         Name = !string.IsNullOrWhiteSpace(name)
             ? name
             : throw new CatalogDomainException("Author name must be provided.");
+
+        this.RegisterDomainEvent(new AuthorCreateEvent(name));
     }
 
-    [DisallowNull]
-    public string? Name { get; private set; }
+    [DisallowNull] public string? Name { get; private set; }
 
     public IReadOnlyCollection<BookAuthor> BookAuthors => _bookAuthors.AsReadOnly();
 

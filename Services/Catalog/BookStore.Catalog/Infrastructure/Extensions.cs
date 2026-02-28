@@ -9,11 +9,12 @@ internal static class Extensions
     {
         var services = builder.Services;
 
-        builder.AddSqlServerDbContext<CatalogDbContext>(connectionName: Components.Database.Catalog, app =>
+        builder.AddSqlServerEfDbContext<CatalogDbContext>(Components.Database.Catalog, app =>
         {
+            services.AddMigration<CatalogDbContext>();
             services.AddRepositories(typeof(ICatalogApiMarker));
         });
 
-        services.AddMigration<CatalogDbContext>();
+        Console.WriteLine(builder);
     }
 }

@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\HandleEvents\" />
     <Folder Include="Grpc\" />
     <Folder Include="IntegerationEvents\" />
   </ItemGroup>
