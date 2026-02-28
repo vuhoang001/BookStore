@@ -20,6 +20,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+app.UseExceptionHandler();
+
 var apiVersionSet = app.NewApiVersionSet()
     .HasApiVersion(Versions.V1)
     .ReportApiVersions()

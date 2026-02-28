@@ -10,6 +10,7 @@
     <PackageReference Include="Aspire.Azure.Npgsql.EntityFrameworkCore.PostgreSQL" />
     <PackageReference Include="FluentValidation" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics" />
     <PackageReference Include="Microsoft.Extensions.Options" />
     <PackageReference Include="Microsoft.Extensions.Telemetry.Abstractions" />
     <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
