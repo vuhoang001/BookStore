@@ -30,6 +30,7 @@
   <ItemGroup>
     <Folder Include="Grpc\" />
     <Folder Include="IntegerationEvents\" />
+    <Folder Include="IntegrationEvents\EventHandlers\" />
   </ItemGroup>
 
 </Project>

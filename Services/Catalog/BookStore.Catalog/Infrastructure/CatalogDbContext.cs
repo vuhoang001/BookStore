@@ -1,4 +1,6 @@
-﻿namespace BookStore.Catalog.Infrastructure;
+﻿using MassTransit;
+
+namespace BookStore.Catalog.Infrastructure;
 
 public class CatalogDbContext(DbContextOptions<CatalogDbContext> options) : DbContext(options: options), IUnitOfWork
 {
@@ -17,6 +19,9 @@ public class CatalogDbContext(DbContextOptions<CatalogDbContext> options) : DbCo
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        modelBuilder.AddInboxStateEntity();
+        modelBuilder.AddOutboxMessageEntity();
+        modelBuilder.AddOutboxStateEntity();
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(CatalogDbContext).Assembly);
     }
 }
