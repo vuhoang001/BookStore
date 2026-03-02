@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,8 +8,8 @@ namespace BuildingBlocks.Chassis.EF;
 
 public static class MigrationDbContextExtensions
 {
-    private const           string         ActivitySourceName = "DbMigrations";
-    private static readonly ActivitySource _activitySource    = new(ActivitySourceName);
+    private const string ActivitySourceName = "DbMigrations";
+    private static readonly ActivitySource _activitySource = new(ActivitySourceName);
 
     public static IServiceCollection AddMigration<TContext>(this IServiceCollection services)
         where TContext : DbContext
@@ -46,10 +46,10 @@ public static class MigrationDbContextExtensions
     )
         where TContext : DbContext
     {
-        using var scope         = services.CreateScope();
-        var       scopeServices = scope.ServiceProvider;
-        var       logger        = scopeServices.GetRequiredService<ILogger<TContext>>();
-        var       context       = scopeServices.GetRequiredService<TContext>();
+        using var scope = services.CreateScope();
+        var scopeServices = scope.ServiceProvider;
+        var logger = scopeServices.GetRequiredService<ILogger<TContext>>();
+        var context = scopeServices.GetRequiredService<TContext>();
 
         using var activity = _activitySource.StartActivity(
             $"Migration operation {typeof(TContext).Name}"

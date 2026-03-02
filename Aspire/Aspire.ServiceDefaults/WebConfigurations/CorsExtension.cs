@@ -1,4 +1,4 @@
-using BuildingBlocks.Constants.Core;
+﻿using BuildingBlocks.Constants.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -6,7 +6,7 @@ namespace Aspire.ServiceDefaults.WebConfigurations;
 
 public static class CorsExtension
 {
-    private const string AllowAllCorsPolicy      = "AllowAll";
+    private const string AllowAllCorsPolicy = "AllowAll";
     private const string AllowSpecificCorsPolicy = "AllowSpecific";
 
     public static void AddDefaultCors(this IHostApplicationBuilder builder)
@@ -40,7 +40,7 @@ public static class CorsExtension
                     AllowSpecificCorsPolicy, policyBuilder =>
                     {
                         var serviceProvider = services.BuildServiceProvider();
-                        var corsOptions     = serviceProvider.GetRequiredService<CorsSetting>();
+                        var corsOptions = serviceProvider.GetRequiredService<CorsSetting>();
 
                         policyBuilder
                             .WithOrigins([.. corsOptions.Origins])

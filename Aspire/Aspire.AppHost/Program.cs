@@ -7,7 +7,7 @@ var password = builder.AddParameter("sql-password", secret: true, value:"1234@Ab
 var sql = builder.AddSqlServer(Components.SqlServer, password)
     .WithEndpoint(Network.Tcp, e =>
     {
-        e.Port       = 14333;
+        e.Port = 14333;
         e.TargetPort = 1433;
     })
     .WithLifetime(ContainerLifetime.Persistent);

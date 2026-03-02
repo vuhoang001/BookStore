@@ -1,4 +1,4 @@
-using BuildingBlocks.Chassis.OpenTelemetry;
+﻿using BuildingBlocks.Chassis.OpenTelemetry;
 using BuildingBlocks.Chassis.OpenTelemetry.ActivityScope;
 using FluentValidation;
 using FluentValidation.Results;
@@ -51,9 +51,9 @@ public class ValidationBehavior<TMessage, TResponse>(
             throw new ValidationException(errors);
         }
 
-        var messageType    = message.GetType().Name;
+        var messageType = message.GetType().Name;
         var validatorNames = validators.Aggregate("", (c, x) => $"{x.GetType().Name}, {c}");
-        var activityName   = $"{messageType}-{validatorNames.Trim().TrimEnd(',')}";
+        var activityName = $"{messageType}-{validatorNames.Trim().TrimEnd(',')}";
 
         await activityScope.Run(
             activityName,

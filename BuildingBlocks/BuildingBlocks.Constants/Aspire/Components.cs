@@ -1,4 +1,4 @@
-namespace BuildingBlocks.Constants.Aspire;
+﻿namespace BuildingBlocks.Constants.Aspire;
 
 public static class Components
 {
@@ -8,6 +8,6 @@ public static class Components
 
     public static class Database
     {
-        public const string Catalog      = "catalogdb";
+        public const string Catalog = "catalogdb";
     }
 }

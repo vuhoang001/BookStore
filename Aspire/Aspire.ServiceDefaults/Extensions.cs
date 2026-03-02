@@ -46,7 +46,7 @@ public static class Extensions
         builder.Logging.AddOpenTelemetry(logging =>
         {
             logging.IncludeFormattedMessage = true;
-            logging.IncludeScopes           = true;
+            logging.IncludeScopes = true;
         });
     }
 
