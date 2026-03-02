@@ -1,4 +1,4 @@
-using BuildingBlocks.SharedKernel.SeedWork;
+﻿using BuildingBlocks.SharedKernel.SeedWork;
 
 namespace BuildingBlocks.Chassis.EventBus.Dispatcher;
 

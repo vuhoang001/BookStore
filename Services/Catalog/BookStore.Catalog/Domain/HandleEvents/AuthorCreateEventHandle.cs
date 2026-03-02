@@ -1,4 +1,4 @@
-using BookStore.Catalog.Domain.Events;
+﻿using BookStore.Catalog.Domain.Events;
 using Mediator;
 
 namespace BookStore.Catalog.Domain.HandleEvents;

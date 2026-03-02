@@ -12,11 +12,15 @@
   <ItemGroup Label="Aspire">
     <PackageReference Include="Aspire.Hosting" />
     <PackageReference Include="Aspire.Hosting.AppHost" />
+    <PackageReference Include="Aspire.Hosting.RabbitMQ" />
     <PackageReference Include="Aspire.Hosting.SqlServer" />
+    <PackageReference Include="Aspire.Hosting.Yarp" />
     <PackageReference Include="DotNetEnv" />
+    <PackageReference Include="Scalar.Aspire" />
   </ItemGroup>
 
   <ItemGroup Label="Services">
+    <ProjectReference Include="..\..\Services\Basket\BookStore.Basket\BookStore.Basket.csproj" />
     <ProjectReference Include="..\..\Services\Catalog\BookStore.Catalog\BookStore.Catalog.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,4 @@
-using BuildingBlocks.SharedKernel.Helpers;
+﻿using BuildingBlocks.SharedKernel.Helpers;
 
 namespace BuildingBlocks.Chassis.EventBus;
 

@@ -1,9 +1,9 @@
-namespace BuildingBlocks.Chassis.Utils.Guards;
+﻿namespace BuildingBlocks.Chassis.Utils.Guards;
 
 public sealed class Guard
 {
-   private Guard()
-   {
-   }
+    private Guard()
+    {
+    }
     public static Guard Against { get; } = new();
 }

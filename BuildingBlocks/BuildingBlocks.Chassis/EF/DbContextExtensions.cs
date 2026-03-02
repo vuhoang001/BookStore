@@ -1,4 +1,4 @@
-using BuildingBlocks.SharedKernel;
+﻿using BuildingBlocks.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -34,7 +34,7 @@ public static class DbContextExtensions
                     );
 
                 // var interceptors = sp.GetServices<IInterceptor>().ToArray();
-                
+
                 var interceptors = sp.GetServices<ISaveChangesInterceptor>()
                     .Cast<IInterceptor>()
                     .ToArray();

@@ -1,4 +1,4 @@
-using BuildingBlocks.SharedKernel.SeedWork;
+﻿using BuildingBlocks.SharedKernel.SeedWork;
 using MassTransit;
 
 namespace BuildingBlocks.Chassis.EventBus.Dispatcher;
@@ -11,7 +11,7 @@ public class EventDispatcher(IBus bus, IEventMapper eventMapper) : IEventDispatc
 
         var integrationEvent = eventMapper.MapToIntegrationEvent(@event) ??
             throw new InvalidOperationException($"No integration event mapping found for '{@event.GetType().Name}'.");
-        
+
         await bus.Publish(integrationEvent, cancellationToken);
     }
 }

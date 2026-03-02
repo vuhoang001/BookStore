@@ -1,4 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using BuildingBlocks.Chassis.Exceptions;
 
 namespace BuildingBlocks.Chassis.Utils.Guards;
@@ -33,5 +33,5 @@ public static class GuardAgainstNotFoundException
             return;
 
         throw NotFoundException.For<T>(id);
-    } 
+    }
 }

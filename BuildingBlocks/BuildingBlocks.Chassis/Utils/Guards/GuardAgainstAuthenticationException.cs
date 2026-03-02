@@ -1,4 +1,4 @@
-namespace BuildingBlocks.Chassis.Utils.Guards;
+﻿namespace BuildingBlocks.Chassis.Utils.Guards;
 
 public static class GuardAgainstAuthenticationException
 {
