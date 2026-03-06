@@ -24,12 +24,7 @@ public static class UrlExtensions
 
         return builder.WithUrls(c =>
         {
-            List<string?> endpointNames = new()
-            {
-                endpointName,
-                Http.Schemes.Https,
-                Http.Schemes.Http
-            };
+            List<string?> endpointNames = new() { endpointName, Http.Schemes.Https, Http.Schemes.Http };
 
             var endpoint = endpointNames
                 .Where(name => name is not null)
@@ -44,10 +39,12 @@ public static class UrlExtensions
 
             displayText ??= Services.ToClientName(builder.Resource.Name);
 
+
             foreach (var url in c.Urls)
             {
                 url.DisplayLocation = UrlDisplayLocation.DetailsOnly;
             }
+
 
             c.Urls.Add(
                 new()

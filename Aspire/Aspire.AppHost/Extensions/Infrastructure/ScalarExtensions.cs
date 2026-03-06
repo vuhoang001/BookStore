@@ -9,8 +9,11 @@ public static class ScalarExtensions
         IResourceBuilder<IResource>? keycloak = null)
     {
         var scalar = builder.AddScalarApiReference(options =>
-                                                       options.DisableDefaultFonts().PreferHttpsEndpoint()
-                                                           .AllowSelfSignedCertificates());
+                                                       options.DisableDefaultFonts()
+                                                           .PreferHttpsEndpoint()
+                                                           .AllowSelfSignedCertificates()
+        );
+
 
         return scalar;
     }

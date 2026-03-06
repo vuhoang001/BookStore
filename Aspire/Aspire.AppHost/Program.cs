@@ -1,8 +1,11 @@
 ﻿using Aspire.AppHost.Extensions.Infrastructure;
+using Aspire.AppHost.Extensions.Network;
 using BuildingBlocks.Constants.Core;
 using Scalar.Aspire;
 
+
 var builder = DistributedApplication.CreateBuilder(args);
+
 
 var password = builder.AddParameter("sql-password", secret: true, value: "1234@Abcd");
 var registry = builder.AddContainerRegistry();
@@ -28,41 +31,19 @@ var sql = builder.AddSqlServer(Components.SqlServer, password)
 var catalogDb = sql.AddDatabase(Components.Database.Catalog);
 
 var catalogApi = builder.AddProject<Projects.BookStore_Catalog>(Services.Catalog)
-    .WithExternalHttpEndpoints()
     .WithReference(queue)
     .WaitFor(queue)
     .WithReference(catalogDb)
     .WaitFor(catalogDb)
-    .WithContainerRegistry(registry);
-
+    .WithFriendlyUrls();
 
 var basketApi = builder.AddProject<Projects.BookStore_Basket>(Services.Basket)
-    .WithExternalHttpEndpoints();
+    .WithReference(queue)
+    .WaitFor(queue)
+    .WithFriendlyUrls();
 
-
-var scalar = builder.AddScalarApiReference()
-    .WithContainerRuntimeArgs("--add-host=host.docker.internal:host-gateway");
-
-
-scalar.WithApiReference(basketApi)
-    .WithApiReference(catalogApi);
-
-
-// Console.WriteLine(basketApi.Resource.Name);
-
-
-// var gateway = builder
-//     .AddApiGatewayProxy()
-//     .WithService(basketApi)
-//     .WithService(catalogApi);
-//
-//
-// if (builder.ExecutionContext.IsRunMode)
-// {
-//     builder.AddScalar()
-//         .WithOpenAPI(catalogApi)
-//         .WithOpenAPI(basketApi);
-// }
-
+var scalar = builder.AddScalarApiReference();
+scalar.WithReference(catalogApi)
+    .WithReference(basketApi);
 
 builder.Build().Run();

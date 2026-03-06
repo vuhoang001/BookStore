@@ -15,9 +15,10 @@ public static class ProxyExtensions
         this IDistributedApplicationBuilder builder,
         IReadOnlyList<Service> services)
     {
+#pragma warning disable ASPIRECERTIFICATES001
         var yarp = builder
             .AddYarp(Services.Gateway)
-            // .WithHttpsDeveloperCertificate()
+            .WithHttpsDeveloperCertificate()
             .WithIconName("SerialPort")
             .WithConfiguration(yarpBuilder =>
             {
@@ -30,6 +31,7 @@ public static class ProxyExtensions
 
                     if (service.UseProtobuf)
                     {
+
                         routeBuilder.WithTransformForwarded();
                     }
 
@@ -44,8 +46,8 @@ public static class ProxyExtensions
                             $"{nameof(Services)} {nameof(Services.Gateway)}"
                         );
                 }
-            })
-            .WithExplicitStart();
+            });
+        // .WithExplicitStart();
 
         return yarp;
     }
@@ -77,6 +79,7 @@ public sealed class ApiGatewayProxyBuilder
         _services.Add(
             new() { Name = service.Resource.Name, Resource = service, UseProtobuf = useProtobuf, }
         );
+
 
         return this;
     }
