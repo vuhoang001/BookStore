@@ -2,21 +2,25 @@
 using BuildingBlocks.SharedKernel;
 using BuildingBlocks.SharedKernel.SeedWork;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Logging;
 
 namespace BuildingBlocks.Chassis.EF;
 
-public class EventDispatchInterceptor(IDomainEventDispatcher dispatcher) : SaveChangesInterceptor
+
+public class EventDispatchInterceptor(
+    IDomainEventDispatcher dispatcher,
+    ILogger<EventDispatchInterceptor> logger) : SaveChangesInterceptor
 {
-    public override async ValueTask<int> SavedChangesAsync(
-        SaveChangesCompletedEventData eventData,
-        int result,
+    public override async ValueTask<InterceptionResult<int>> SavingChangesAsync(
+        DbContextEventData eventData,
+        InterceptionResult<int> result,
         CancellationToken cancellationToken = default
     )
     {
         var ctx = eventData.Context;
         if (ctx is null)
         {
-            return await base.SavedChangesAsync(eventData, result, cancellationToken);
+            return await base.SavingChangesAsync(eventData, result, cancellationToken);
         }
 
         var entitiesWithEvents = ctx
@@ -25,7 +29,13 @@ public class EventDispatchInterceptor(IDomainEventDispatcher dispatcher) : SaveC
             .Where(x => x.DomainEvents.Count != 0)
             .ToImmutableList();
 
+        logger.LogInformation(
+            "EventDispatchInterceptor: SavingChanges starting, found {EntityCount} entities with domain events. Dispatching now.",
+            entitiesWithEvents.Count
+        );
+
         await dispatcher.DispatchAndClearEvents(entitiesWithEvents);
-        return await base.SavedChangesAsync(eventData, result, cancellationToken);
+
+        return await base.SavingChangesAsync(eventData, result, cancellationToken);
     }
 }

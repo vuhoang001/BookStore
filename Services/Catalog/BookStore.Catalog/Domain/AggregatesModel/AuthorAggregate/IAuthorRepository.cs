@@ -2,7 +2,7 @@
 
 namespace BookStore.Catalog.Domain.AggregatesModel.AuthorAggregate;
 
-public interface IAuthorRepository : IRepository<Author>
+public interface IAuthorRepository : IRepository<Author>, IUnitOfWork
 {
     Task<Author> AddAsync(Author author, CancellationToken cancellationToken);
     Task<IReadOnlyList<Author>> ListAsync(CancellationToken cancellationToken);

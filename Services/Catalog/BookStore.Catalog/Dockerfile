@@ -1,20 +1,20 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-COPY ["Services/Basket/BookStore.Basket/BookStore.Basket.csproj", "Services/Basket/BookStore.Basket/"]
+COPY ["Services/Catalog/BookStore.Catalog/BookStore.Catalog.csproj", "Services/Catalog/BookStore.Catalog/"]
 COPY ["Aspire/Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj", "Aspire/Aspire.ServiceDefaults/"]
 COPY ["BuildingBlocks/BuildingBlocks.Chassis/BuildingBlocks.Chassis.csproj", "BuildingBlocks/BuildingBlocks.Chassis/"]
 COPY ["BuildingBlocks/BuildingBlocks.Constants/BuildingBlocks.Constants.csproj", "BuildingBlocks/BuildingBlocks.Constants/"]
 COPY ["BuildingBlocks/BuildingBlocks.SharedKernel/BuildingBlocks.SharedKernel.csproj", "BuildingBlocks/BuildingBlocks.SharedKernel/"]
 
-RUN dotnet restore "Services/Basket/BookStore.Basket/BookStore.Basket.csproj"
+RUN dotnet restore "Services/Catalog/BookStore.Catalog/BookStore.Catalog.csproj"
 
 COPY . .
 
-RUN dotnet build "Services/Basket/BookStore.Basket/BookStore.Basket.csproj" -c Release -o /app/build
+RUN dotnet build "Services/Catalog/BookStore.Catalog/BookStore.Catalog.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Services/Basket/BookStore.Basket/BookStore.Basket.csproj" -c Release -o /app/publish
+RUN dotnet publish "Services/Catalog/BookStore.Catalog/BookStore.Catalog.csproj" -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
@@ -23,4 +23,4 @@ EXPOSE 8443
 
 COPY --from=publish /app/publish .
 
-ENTRYPOINT ["dotnet", "BookStore.Basket.dll"]
+ENTRYPOINT ["dotnet", "BookStore.Catalog.dll"]

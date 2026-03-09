@@ -11,17 +11,21 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseSwagger();
+app.UseSwaggerUI();
+
+// Expose OpenAPI document tại endpoint chuẩn để Scalar có thể discover
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwagger(options =>
+    {
+        options.RouteTemplate = "openapi/{documentName}.json";
+    });
 }
 
-
+app.UseExceptionHandler();
 app.UseExceptionHandler();
 
 var apiVersionSet = app.NewApiVersionSet()

@@ -87,7 +87,7 @@ namespace BookStore.Catalog.Infrastructure.Migrations
                     b.Property<Guid?>("PublisherId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<long>("RowVersion")
+                    b.Property<long?>("RowVersion")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("bigint");

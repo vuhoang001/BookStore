@@ -41,4 +41,19 @@ public class AuthorRepository(CatalogDbContext context) : IAuthorRepository
             .GetQuery(_context.Authors.AsQueryable(), spec)
             .FirstOrDefaultAsync(cancellationToken);
     }
+
+    public void Dispose()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
 }

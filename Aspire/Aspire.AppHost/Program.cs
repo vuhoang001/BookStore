@@ -1,5 +1,4 @@
 ﻿using Aspire.AppHost.Extensions.Infrastructure;
-using Aspire.AppHost.Extensions.Network;
 using BuildingBlocks.Constants.Core;
 using Scalar.Aspire;
 
@@ -34,16 +33,22 @@ var catalogApi = builder.AddProject<Projects.BookStore_Catalog>(Services.Catalog
     .WithReference(queue)
     .WaitFor(queue)
     .WithReference(catalogDb)
-    .WaitFor(catalogDb)
-    .WithFriendlyUrls();
+    .WaitFor(catalogDb);
 
 var basketApi = builder.AddProject<Projects.BookStore_Basket>(Services.Basket)
     .WithReference(queue)
-    .WaitFor(queue)
-    .WithFriendlyUrls();
+    .WaitFor(queue);
 
-var scalar = builder.AddScalarApiReference();
-scalar.WithReference(catalogApi)
-    .WithReference(basketApi);
+var scalar = builder
+    .AddScalarApiReference(options =>
+    {
+        options.DisableDefaultFonts()
+            .PreferHttpsEndpoint()
+            .AllowSelfSignedCertificates();
+    });
+
+// Tự động add OpenAPI endpoints từ các services
+scalar.WithApiReference(catalogApi);
+scalar.WithApiReference(basketApi);
 
 builder.Build().Run();

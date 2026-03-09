@@ -1,4 +1,6 @@
-﻿using BuildingBlocks.Chassis.EF;
+﻿using BookStore.Catalog.Infrastructure.Services;
+using BuildingBlocks.Chassis.EF;
+using BuildingBlocks.Chassis.EventBus.Dispatcher;
 using BuildingBlocks.Constants.Aspire;
 
 namespace BookStore.Catalog.Infrastructure;
@@ -15,6 +17,8 @@ internal static class Extensions
             services.AddRepositories(typeof(ICatalogApiMarker));
         });
 
-        Console.WriteLine(builder);
+
+        services.AddScoped<IEventDispatcher, EventDispatcher>();
+        services.AddScoped<IEventMapper, EventMapper>();
     }
 }

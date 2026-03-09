@@ -1,5 +1,8 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using Aspire.ServiceDefaults;
 
+var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -8,7 +11,10 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+    app.UseSwagger(options =>
+    {
+        options.RouteTemplate = "openapi/{documentName}.json";
+    });
     app.UseSwaggerUI();
 }
 
@@ -33,6 +39,8 @@ app.MapGet("/weatherforecast", () =>
     })
     .WithName("GetWeatherForecast")
     .WithOpenApi();
+
+app.MapDefaultEndpoints();
 
 app.Run();
 

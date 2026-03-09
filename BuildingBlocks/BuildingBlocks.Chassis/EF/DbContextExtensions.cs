@@ -21,8 +21,8 @@ public static class DbContextExtensions
 
         if (!excludeDefaultInterceptors)
         {
-            services.AddScoped<ISaveChangesInterceptor, EventDispatchInterceptor>();
             services.AddScoped<IDomainEventDispatcher, MediatorDomainEventDispatcher>();
+            services.AddScoped<ISaveChangesInterceptor, EventDispatchInterceptor>();
         }
 
         services.AddDbContext<TDbContext>((sp, options) =>
@@ -33,7 +33,6 @@ public static class DbContextExtensions
                                            warnings.Ignore(RelationalEventId.PendingModelChangesWarning)
                     );
 
-                // var interceptors = sp.GetServices<IInterceptor>().ToArray();
 
                 var interceptors = sp.GetServices<ISaveChangesInterceptor>()
                     .Cast<IInterceptor>()
@@ -82,7 +81,6 @@ public static class DbContextExtensions
                                        warnings.Ignore(RelationalEventId.PendingModelChangesWarning)
                 );
 
-            // var interceptors = sp.GetServices<ISaveChangesInterceptor>().ToArray();
 
             var interceptors = sp.GetServices<ISaveChangesInterceptor>()
                 .Cast<IInterceptor>()

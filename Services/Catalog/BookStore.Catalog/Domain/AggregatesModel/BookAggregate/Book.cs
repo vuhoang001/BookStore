@@ -1,6 +1,4 @@
-﻿using BookStore.Catalog.Domain.AggregatesModel.CategoryAggregate;
-using BookStore.Catalog.Domain.AggregatesModel.PublisherAggregate;
-using BookStore.Catalog.Domain.Events;
+﻿using BookStore.Catalog.Domain.Events;
 
 namespace BookStore.Catalog.Domain.AggregatesModel.BookAggregate;
 
@@ -24,6 +22,9 @@ public sealed class Book() : AuditableEntity, IAggregateRoot, ISoftDelete
         CategoryId = categoryId;
         PublisherId = publisherId;
         _bookAuthors = [.. authorIds.Select(authorId => new BookAuthor(authorId))];
+
+        // Emit creation event once when aggregate is first created.
+        RegisterDomainEvent(new BookCreatedEvent(this));
     }
 
     private readonly List<BookAuthor> _bookAuthors = [];
@@ -71,7 +72,6 @@ public sealed class Book() : AuditableEntity, IAggregateRoot, ISoftDelete
         CategoryId = categoryId;
         PublisherId = publisherId;
         _bookAuthors.AddRange(authorIds.Select(authorId => new BookAuthor(authorId)));
-        RegisterDomainEvent(new BookCreatedEvent(this));
         return this;
     }
 
@@ -108,6 +108,7 @@ public sealed class Book() : AuditableEntity, IAggregateRoot, ISoftDelete
         RegisterDomainEvent(new BookChangedEvent($"{nameof(Book).ToLowerInvariant()}:{Id}"));
         return this;
     }
+
     public Book RemoveRating(int rating)
     {
         if (TotalReviews <= 1)
@@ -124,6 +125,4 @@ public sealed class Book() : AuditableEntity, IAggregateRoot, ISoftDelete
         RegisterDomainEvent(new BookChangedEvent($"{nameof(Book).ToLowerInvariant()}:{Id}"));
         return this;
     }
-
-
 }

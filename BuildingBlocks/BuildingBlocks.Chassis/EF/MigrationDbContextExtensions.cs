@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BuildingBlocks.Chassis.EF;
 
-public static class MigrationDbContextExtensions
+public static class IBusMigrationDbContextExtensions
 {
     private const string ActivitySourceName = "DbMigrations";
     private static readonly ActivitySource _activitySource = new(ActivitySourceName);

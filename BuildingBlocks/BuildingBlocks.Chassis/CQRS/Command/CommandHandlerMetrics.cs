@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics.Metrics;
+using BuildingBlocks.Chassis.OpenTelemetry;
+using BuildingBlocks.Chassis.OpenTelemetry.ActivityScope;
 
 namespace BuildingBlocks.Chassis.CQRS.Command;
 
@@ -12,25 +14,25 @@ public class CommandHandlerMetrics : IDisposable
 
     public CommandHandlerMetrics(IMeterFactory meterFactory, TimeProvider timeProvider)
     {
-        // _timeProvider = timeProvider;
-        // _meter        = meterFactory.Create(ActivitySourceProvider.DefaultSourceName);
-        //
-        // _totalCommandsNumber = _meter.CreateCounter<long>(
-        //     TelemetryTags.Commands.TotalCommandsNumber,
-        //     "{command}",
-        //     "Total number of commands send to command handlers"
-        // );
-        //
-        // _activeEventHandlingCounter = _meter.CreateUpDownCounter<long>(
-        //     TelemetryTags.Commands.ActiveCommandsNumber,
-        //     "{command}",
-        //     "Number of commands currently being handled"
-        // );
-        //
-        // _eventHandlingDuration = _meter.CreateHistogram<double>(
-        //     TelemetryTags.Commands.CommandHandlingDuration, "s",
-        //     "Measures the duration of inbound commands"
-        // );
+        _timeProvider = timeProvider;
+        _meter = meterFactory.Create(ActivitySourceProvider.DefaultSourceName);
+
+        _totalCommandsNumber = _meter.CreateCounter<long>(
+            TelemetryTags.Commands.TotalCommandsNumber,
+            "{command}",
+            "Total number of commands send to command handlers"
+        );
+
+        _activeEventHandlingCounter = _meter.CreateUpDownCounter<long>(
+            TelemetryTags.Commands.ActiveCommandsNumber,
+            "{command}",
+            "Number of commands currently being handled"
+        );
+
+        _eventHandlingDuration = _meter.CreateHistogram<double>(
+            TelemetryTags.Commands.CommandHandlingDuration, "s",
+            "Measures the duration of inbound commands"
+        );
     }
 
     public void Dispose()

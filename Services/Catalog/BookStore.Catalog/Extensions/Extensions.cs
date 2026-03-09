@@ -1,5 +1,6 @@
 ﻿using Aspire.ServiceDefaults.WebConfigurations;
 using BookStore.Catalog.Infrastructure;
+using BookStore.Catalog.IntegrationEvents.EventHandlers;
 using BuildingBlocks.Chassis.CQRS.Pipelines;
 using BuildingBlocks.Chassis.EventBus;
 using BuildingBlocks.Chassis.Exceptions;
@@ -35,9 +36,13 @@ internal static class Extensions
 
         builder.AddEventBus(typeof(ICatalogApiMarker), cfg =>
         {
+            cfg.AddConsumer<BookCreateIntegrationHandler>();
+            cfg.AddConsumer<BookUpdateIntegrationHandler>();
+            cfg.AddConsumer<BookChangeIntegrationHandler>();
+
             cfg.AddEntityFrameworkOutbox<CatalogDbContext>(o =>
             {
-                o.QueryDelay = TimeSpan.FromSeconds(1);
+                o.QueryDelay = TimeSpan.FromSeconds(5);
                 o.DuplicateDetectionWindow = TimeSpan.FromMinutes(5);
                 o.UseSqlServer();
                 o.UseBusOutbox();
