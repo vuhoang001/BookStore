@@ -15,17 +15,6 @@ public sealed class BookCreatedEventHandle(
 {
     public async ValueTask Handle(BookCreatedEvent notification, CancellationToken cancellationToken)
     {
-        logger.LogInformation(
-            "BookCreatedEventHandle: Received BookCreatedEvent for Book {BookId} '{BookName}'",
-            notification.Book.Id,
-            notification.Book.Name
-        );
-
         await eventDispatcher.DispatchAsync(notification, cancellationToken);
-
-        logger.LogInformation(
-            "BookCreatedEventHandle: Published integration event for BookCreatedEvent {BookId}",
-            notification.Book.Id
-        );
     }
 }

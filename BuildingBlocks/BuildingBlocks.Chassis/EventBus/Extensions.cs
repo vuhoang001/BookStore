@@ -32,7 +32,9 @@ public static class Extensions
 
             config.AddActivities(type.Assembly);
 
+
             config.AddRequestClient(type);
+            busConfigure?.Invoke(config);
 
             config.UsingRabbitMq((context, configurator) =>
                 {
@@ -43,7 +45,6 @@ public static class Extensions
                 }
             );
 
-            busConfigure?.Invoke(config);
         });
 
         builder

@@ -1,5 +1,5 @@
 ﻿using BookStore.Catalog.Domain.Events;
-using BookStore.Catalog.IntegrationEvents.Events;
+using BookStore.Constract.IntegrationEvents;
 using BuildingBlocks.Chassis.EventBus;
 using BuildingBlocks.Chassis.EventBus.Dispatcher;
 

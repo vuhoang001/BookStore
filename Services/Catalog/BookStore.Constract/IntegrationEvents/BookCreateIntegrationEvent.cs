@@ -1,6 +1,6 @@
 ﻿using BuildingBlocks.Chassis.EventBus;
 
-namespace BookStore.Catalog.IntegrationEvents.Events;
+namespace BookStore.Constract.IntegrationEvents;
 
 public record BookCreateIntegrationEvent : IntegrationEvent
 {

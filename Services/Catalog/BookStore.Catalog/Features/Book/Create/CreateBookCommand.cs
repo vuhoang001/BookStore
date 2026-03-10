@@ -39,10 +39,6 @@ public sealed class CreateBookCommandHandler(
 
         var result = await bookRepository.AddAsync(book, cancellationToken);
 
-        var integrationEvent = eventMapper.MapToIntegrationEvent(new BookCreatedEvent(book));
-        await bus.Publish(integrationEvent, cancellationToken);
-
-
         logger.LogInformation("CreateBookCommandHandler: Calling SaveChangesAsync");
         await bookRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 

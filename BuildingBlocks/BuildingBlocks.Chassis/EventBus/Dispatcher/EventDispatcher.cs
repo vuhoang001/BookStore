@@ -30,12 +30,7 @@ public class EventDispatcher(
 
         try
         {
-            logger.LogInformation(
-                "Ambient transaction: {Transaction}",
-                Transaction.Current != null
-            );
-            // Use IBus.Publish which will participate in outbox when called within DbContext transaction
-            await bus.Publish(integrationEvent, cancellationToken);
+            await bus.Publish(integrationEvent.GetType(), integrationEvent, cancellationToken);
 
             logger.LogInformation(
                 "EventDispatcher: Successfully published {IntegrationEventType} (EventId: {EventId}) to outbox/queue",

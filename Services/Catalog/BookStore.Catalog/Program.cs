@@ -10,13 +10,13 @@ builder.AddPersistenceServices();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddLogging();
 
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// Expose OpenAPI document tại endpoint chuẩn để Scalar có thể discover
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger(options =>

@@ -109,6 +109,16 @@ public sealed class Book() : AuditableEntity, IAggregateRoot, ISoftDelete
         return this;
     }
 
+    public void UpdatePrice(decimal newPrice)
+    {
+        Price = new Price(newPrice, newPrice);
+    }
+
+    public void UpdateName(string name)
+    {
+        Name += name;
+    }
+
     public Book RemoveRating(int rating)
     {
         if (TotalReviews <= 1)

@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Aspire\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\BookStore.Constract\BookStore.Constract.csproj" />
   </ItemGroup>
 
   <ItemGroup>
