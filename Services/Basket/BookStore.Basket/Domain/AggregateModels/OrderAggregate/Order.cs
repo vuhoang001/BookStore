@@ -4,10 +4,8 @@ using BuildingBlocks.SharedKernel.SeedWork;
 namespace BookStore.Basket.Domain.AggregateModels.OrderAggregate;
 
 public class Order : AuditableEntity, IAggregateRoot, ISoftDelete
-
 {
-
-    private Order() { } // EF Core
+    private Order() { }
 
     public Order(string orderCode)
     {

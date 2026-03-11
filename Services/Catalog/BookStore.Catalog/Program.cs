@@ -1,12 +1,12 @@
 ﻿using Aspire.ServiceDefaults;
 using BookStore.Catalog.Extensions;
+using BookStore.Catalog.Grpc.Services.Book;
 using BookStore.Catalog.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 builder.AddApplicationService();
-builder.AddPersistenceServices();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -26,7 +26,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseExceptionHandler();
-app.UseExceptionHandler();
 
 var apiVersionSet = app.NewApiVersionSet()
     .HasApiVersion(Versions.V1)
@@ -35,8 +34,11 @@ var apiVersionSet = app.NewApiVersionSet()
 
 app.MapEndpoints(apiVersionSet);
 
-app.UseHttpsRedirection();
 app.MapDefaultEndpoints();
+
+app.MapGrpcService<BookService>();
+app.MapGrpcHealthChecksService();
+
 
 
 app.Run();

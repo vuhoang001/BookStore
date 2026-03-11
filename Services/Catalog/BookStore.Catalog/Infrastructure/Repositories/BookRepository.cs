@@ -22,6 +22,18 @@ public class BookRepository(CatalogDbContext context) : IBookRepository
         return result;
     }
 
+    public async Task<Book?> GetBookByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        return await context.Books.FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
+    }
+
+    public async Task<IEnumerable<Book>> GetBooksByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken = default)
+    {
+        return await context.Books
+            .Where(b => ids.Contains(b.Id))
+            .ToListAsync(cancellationToken);
+    }
+
     public void Dispose()
     {
         context.Dispose();

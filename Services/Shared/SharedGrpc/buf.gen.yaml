@@ -1,0 +1,8 @@
+version: v1
+
+plugins:
+  - plugin: buf.build/protocolbuffers/csharp
+    out: Generated
+
+  - plugin: buf.build/grpc/csharp
+    out: Generated

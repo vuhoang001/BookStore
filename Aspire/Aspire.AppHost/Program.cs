@@ -41,7 +41,9 @@ var basketApi = builder.AddProject<Projects.BookStore_Basket>(Services.Basket)
     .WithReference(queue)
     .WaitFor(queue)
     .WithReference(basketDb)
-    .WaitFor(basketDb);
+    .WaitFor(basketDb)
+    .WithReference(catalogApi)
+    .WaitFor(catalogApi);
 
 
 var scalar = builder

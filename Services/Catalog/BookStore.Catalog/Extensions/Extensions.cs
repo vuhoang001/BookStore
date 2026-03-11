@@ -1,4 +1,5 @@
 ﻿using Aspire.ServiceDefaults.WebConfigurations;
+using BookStore.Catalog.Grpc;
 using BookStore.Catalog.Infrastructure;
 using BuildingBlocks.Chassis.CQRS.Pipelines;
 using BuildingBlocks.Chassis.EventBus;
@@ -16,6 +17,9 @@ internal static class Extensions
 
         builder.AddDefaultCors();
 
+        builder.AddGrpcServices();
+
+        builder.AddPersistenceServices();
 
         services.AddMediator((MediatorOptions options) => options.ServiceLifetime = ServiceLifetime.Scoped
             )
@@ -55,5 +59,7 @@ internal static class Extensions
 
         services.AddVersioning();
         services.AddEndpoints(typeof(ICatalogApiMarker));
+
+
     }
 }

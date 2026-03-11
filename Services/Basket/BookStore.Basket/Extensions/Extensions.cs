@@ -1,4 +1,5 @@
 ﻿using Aspire.ServiceDefaults.WebConfigurations;
+using BookStore.Basket.Grpc;
 using BookStore.Basket.Infrastructure;
 using BuildingBlocks.Chassis.CQRS.Pipelines;
 using BuildingBlocks.Chassis.EndPoints;
@@ -16,6 +17,12 @@ internal static class Extensions
         var services = builder.Services;
 
         builder.AddDefaultCors();
+
+        #region gRPC clients
+
+        builder.AddGrpcServices();
+
+        #endregion
 
 
         services.AddMediator((MediatorOptions options) => options.ServiceLifetime = ServiceLifetime.Scoped

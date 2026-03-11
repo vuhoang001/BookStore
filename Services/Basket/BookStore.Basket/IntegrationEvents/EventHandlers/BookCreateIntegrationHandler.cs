@@ -1,13 +1,21 @@
-﻿using BookStore.Constract.IntegrationEvents;
+﻿using BookStore.Basket.Infrastructure.ReadModels.Books;
+using BookStore.Constract.IntegrationEvents;
 using MassTransit;
 
 namespace BookStore.Basket.IntegrationEvents.EventHandlers;
 
-public class BookCreateIntegrationHandler : IConsumer<BookCreateIntegrationEvent>
+public class BookCreateIntegrationHandler(IBookReadModelRepository bookReadModelRepository)
+    : IConsumer<BookCreateIntegrationEvent>
 {
-    public Task Consume(ConsumeContext<BookCreateIntegrationEvent> context)
+    public async Task Consume(ConsumeContext<BookCreateIntegrationEvent> context)
     {
-        Console.WriteLine("Toi ten la hoang");
-        return Task.CompletedTask;
+        var bookReadModel = new BookReadModel
+        {
+            Id = context.Message.BookId,
+            BookName = context.Message.Name,
+            BookDescription = context.Message.Description
+        };
+
+        await bookReadModelRepository.AddBookAsync(bookReadModel, context.CancellationToken);
     }
 }

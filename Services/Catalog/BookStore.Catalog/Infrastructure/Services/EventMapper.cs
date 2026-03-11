@@ -18,8 +18,8 @@ public class EventMapper(ILogger<EventMapper> logger) : IEventMapper
         {
             BookCreatedEvent e => new BookCreateIntegrationEvent
             {
-                OrderId = e.Book.Id,
-                Name = e.Book.Name,
+                BookId = e.Book.Id,
+                Name = e.Book.Name ?? string.Empty,
                 Description = e.Book.Description
             },
             _ => throw new NotImplementedException(

@@ -38,5 +38,7 @@ app.MapEndpoints(apiVersionSet);
 app.UseHttpsRedirection();
 app.MapDefaultEndpoints();
 
+app.MapGrpcHealthChecksService();
+
 
 app.Run();

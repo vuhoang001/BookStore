@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" />
+    <PackageReference Include="Grpc.AspNetCore.HealthChecks" />
+    <PackageReference Include="Grpc.Tools">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Mediator.Abstractions" />
     <PackageReference Include="Mediator.SourceGenerator">
       <PrivateAssets>all</PrivateAssets>
@@ -22,7 +28,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Aspire\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj" />
-    <ProjectReference Include="..\..\Catalog\BookStore.Constract\BookStore.Constract.csproj" />
+    <ProjectReference Include="..\..\Catalog\BookStore.Contract\BookStore.Contract.csproj" />
+    <ProjectReference Include="..\..\Shared\SharedGrpc\SharedGrpc.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using BookStore.Basket.Domain.AggregateModels.OrderAggregate;
+using BookStore.Basket.Infrastructure.ReadModels.Books;
 using BuildingBlocks.Chassis.Repository;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,8 @@ public class BasketDbContext(DbContextOptions<BasketDbContext> options) : DbCont
 {
     public DbSet<Order> Order { get; set; }
     public DbSet<OrderLine> OrderLine { get; set; }
+
+    public DbSet<BookReadModel> BookReadModel { get; set; }
 
 
     public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)

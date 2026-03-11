@@ -1,4 +1,6 @@
-﻿using BuildingBlocks.Chassis.EF;
+﻿using BookStore.Basket.Infrastructure.ReadModels.Books;
+using BookStore.Basket.Infrastructure.Repositories;
+using BuildingBlocks.Chassis.EF;
 using BuildingBlocks.Chassis.Repository;
 using BuildingBlocks.Constants.Aspire;
 
@@ -15,6 +17,9 @@ internal static class Extensions
             services.AddMigration<BasketDbContext>();
             services.AddRepositories(typeof(IBasketMarket));
         });
+
+
+        services.AddScoped<IBookReadModelRepository, BookReadModelRepository>();
 
 
         // services.AddScoped<IEventDispatcher, EventDispatcher>();
