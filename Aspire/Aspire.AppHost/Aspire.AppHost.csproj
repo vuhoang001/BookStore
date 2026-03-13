@@ -33,4 +33,9 @@
     <ProjectReference Include="..\..\BuildingBlocks\BuildingBlocks.Constants\BuildingBlocks.Constants.csproj" IsAspireProjectResource="false" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Containers\Keycloak\" />
+  </ItemGroup>
+
 </Project>

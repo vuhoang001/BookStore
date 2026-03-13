@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option csharp_namespace = "BookStore.Shared.Grpc.Book.V2";
+
+package book.v2;
+
+service BookGrpcService {
+  rpc GetBook(GetBookRequest) returns (GetBookResponse);
+  rpc GetBooks(GetBooksRequest) returns (GetBooksResponse);
+}
+
+message GetBookRequest {
+  string id = 1;
+}
+
+message GetBooksRequest {
+  repeated string ids = 1;
+}
+
+message GetBookResponse {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+}
+
+message GetBooksResponse {
+  repeated GetBookResponse books = 1;
+}
