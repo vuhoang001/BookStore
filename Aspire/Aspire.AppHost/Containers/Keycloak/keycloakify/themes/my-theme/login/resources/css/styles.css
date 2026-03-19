@@ -1,0 +1,17 @@
+body {
+  background: black !important;
+}
+
+.login-pf body {
+  background: linear-gradient(135deg, #000, #333) !important;
+}
+
+.card-pf {
+  border-radius: 20px !important;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5) !important;
+}
+
+#kc-header-wrapper {
+  color: red !important;
+  font-size: 24px;
+}

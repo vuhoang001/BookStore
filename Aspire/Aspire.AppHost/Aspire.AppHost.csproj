@@ -16,6 +16,7 @@
     <PackageReference Include="Aspire.Hosting" />
     <PackageReference Include="Aspire.Hosting.AppHost" />
     <PackageReference Include="Aspire.Hosting.Azure" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" />
     <PackageReference Include="Aspire.Hosting.RabbitMQ" />
     <PackageReference Include="Aspire.Hosting.SqlServer" />
     <PackageReference Include="Aspire.Hosting.Yarp" />
@@ -26,16 +27,12 @@
   <ItemGroup Label="Services">
     <ProjectReference Include="..\..\Services\Basket\BookStore.Basket\BookStore.Basket.csproj" />
     <ProjectReference Include="..\..\Services\Catalog\BookStore.Catalog\BookStore.Catalog.csproj" />
+    <ProjectReference Include="..\..\Services\Identity\BookStore.Identity\BookStore.Identity.csproj" />
   </ItemGroup>
 
 
   <ItemGroup Label="Integrations">
     <ProjectReference Include="..\..\BuildingBlocks\BuildingBlocks.Constants\BuildingBlocks.Constants.csproj" IsAspireProjectResource="false" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="Containers\Keycloak\" />
   </ItemGroup>
 
 </Project>

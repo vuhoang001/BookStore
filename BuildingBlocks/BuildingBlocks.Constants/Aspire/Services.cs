@@ -4,7 +4,9 @@ public static class Services
 {
     public const string Catalog = "Catalog";
     public const string Basket = "Basket";
+    public const string Identity = "Identity";
     public const string Gateway = "Gateway";
+    
 
 
     public static string ToClientName(string application, string? suffix = null)

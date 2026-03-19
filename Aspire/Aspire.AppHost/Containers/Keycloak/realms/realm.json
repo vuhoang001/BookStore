@@ -1,0 +1,31 @@
+{
+  "id": "quickstart",
+  "realm": "quickstart",
+  "enabled": true,
+  "clients": [
+    {
+      "clientId": "resource-server",
+      "enabled": true,
+      "bearerOnly": false
+    },
+    {
+      "clientId": "test-cli",
+      "enabled": true,
+      "publicClient": true,
+      "directAccessGrantsEnabled": true
+    }
+  ],
+  "users": [
+    {
+      "username": "alice",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "alice",
+          "temporary": false
+        }
+      ]
+    }
+  ]
+}

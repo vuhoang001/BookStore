@@ -4,6 +4,7 @@ using BookStore.Catalog.Infrastructure;
 using BuildingBlocks.Chassis.CQRS.Pipelines;
 using BuildingBlocks.Chassis.EventBus;
 using BuildingBlocks.Chassis.Exceptions;
+using BuildingBlocks.Chassis.Security.Keycloaks;
 using MassTransit;
 using Mediator;
 
@@ -60,6 +61,7 @@ internal static class Extensions
         services.AddVersioning();
         services.AddEndpoints(typeof(ICatalogApiMarker));
 
+        services.AddScoped<KeycloakTokenIntrospectionMiddleware>();
 
     }
 }

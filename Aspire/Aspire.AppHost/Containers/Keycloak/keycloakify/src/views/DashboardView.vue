@@ -1,22 +1,23 @@
 <script setup>
-import Keycloak from 'keycloak-js'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import {
+  getParsedToken,
+  getToken,
+  initKeycloak,
+  isAuthenticated,
+  logout,
+  updateToken
+} from '../auth/keycloak.js'
 
-const isLoading = ref(false)
-const isAuthenticated = ref(false)
+const router = useRouter()
+
 const errorMessage = ref('')
 const token = ref('')
 const parsedToken = ref(null)
 const showToken = ref(false)
 
-let keycloak = null
 let refreshTimer = null
-
-const keycloakConfig = {
-  url: 'http://localhost:8080',
-  realm: 'Hoanggggf',
-  clientId: 'vue-app'
-}
 
 const displayName = computed(() => {
   if (!parsedToken.value) return 'Unknown user'
@@ -40,41 +41,24 @@ const expiresAt = computed(() => {
   return new Date(exp * 1000).toLocaleString()
 })
 
-const issuedAt = computed(() => {
-  const iat = parsedToken.value?.iat
-  if (!iat) return 'Unknown'
-  return new Date(iat * 1000).toLocaleString()
-})
-
-const tokenDurationMinutes = computed(() => {
-  const exp = parsedToken.value?.exp
-  const iat = parsedToken.value?.iat
-  if (!exp || !iat || exp <= iat) return 'Unknown'
-  return `${Math.round((exp - iat) / 60)} min`
-})
-
 const syncAuthState = () => {
-  isAuthenticated.value = Boolean(keycloak?.authenticated)
-  token.value = keycloak?.token ?? ''
-  parsedToken.value = keycloak?.tokenParsed ?? null
-
-  if (!isAuthenticated.value) {
-    showToken.value = false
-  }
+  token.value = getToken()
+  parsedToken.value = getParsedToken()
 }
 
 const startTokenRefresh = () => {
-  if (refreshTimer || !keycloak) return
+  if (refreshTimer) return
 
-  // Keep token fresh while dashboard stays open.
+  // Keep token alive while user stays in dashboard.
   refreshTimer = window.setInterval(async () => {
     try {
-      if (!keycloak?.authenticated) return
-      await keycloak.updateToken(30)
-      syncAuthState()
+      const refreshed = await updateToken(30)
+      if (refreshed) {
+        syncAuthState()
+      }
     } catch {
       errorMessage.value = 'Phien dang nhap da het han. Hay dang nhap lai.'
-      syncAuthState()
+      await router.replace('/login')
     }
   }, 115000)
 }
@@ -85,73 +69,49 @@ const stopTokenRefresh = () => {
   refreshTimer = null
 }
 
-const initKeycloak = async () => {
-  isLoading.value = true
+const loadSession = async () => {
   errorMessage.value = ''
 
   try {
-    keycloak = new Keycloak(keycloakConfig)
+    await initKeycloak({ onLoad: 'check-sso' })
 
-    await keycloak.init({
-      onLoad: 'login-required',
-      pkceMethod: 'S256',
-      checkLoginIframe: false
-    })
+    if (!isAuthenticated()) {
+      await router.replace({ name: 'login', query: { redirect: '/dashboard' } })
+      return
+    }
 
     syncAuthState()
-
-    if (keycloak.authenticated) {
-      startTokenRefresh()
-    }
+    startTokenRefresh()
   } catch (error) {
-    console.log(error);
-    errorMessage.value = `Khong the ket noi Keycloak: ${String(error)}`
-  } finally {
-    isLoading.value = false
-  }
-}
-
-const login = async () => {
-  if (!keycloak) return
-
-  errorMessage.value = ''
-
-  try {
-    await keycloak.login({ redirectUri: window.location.href })
-  } catch (error) {
-    errorMessage.value = `Dang nhap that bai: ${String(error)}`
+    errorMessage.value = `Khong the tai phien dang nhap: ${String(error)}`
+    await router.replace('/login')
   }
 }
 
 const manualRefreshToken = async () => {
-  if (!keycloak) return
-
   errorMessage.value = ''
 
   try {
-    await keycloak.updateToken(0)
+    await updateToken(0)
     syncAuthState()
   } catch (error) {
     errorMessage.value = `Lam moi token that bai: ${String(error)}`
   }
 }
 
-const logout = async () => {
-  if (!keycloak) return
-
+const handleLogout = async () => {
   errorMessage.value = ''
+  stopTokenRefresh()
 
   try {
-    await keycloak.logout({ redirectUri: window.location.origin })
-    stopTokenRefresh()
-    syncAuthState()
+    await logout(`${window.location.origin}/login`)
   } catch (error) {
     errorMessage.value = `Dang xuat that bai: ${String(error)}`
   }
 }
 
 onMounted(async () => {
-  await initKeycloak()
+  await loadSession()
 })
 
 onUnmounted(() => {
@@ -160,32 +120,14 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <main class="login-page">
-    <section class="card" v-if="!isAuthenticated">
-      <h1>Keycloak Playground</h1>
-      <p class="desc">UI de test login/logout va token khi ket noi voi Keycloak.</p>
-
-      <div class="config">
-        <div><strong>URL:</strong> {{ keycloakConfig.url }}</div>
-        <div><strong>Realm:</strong> {{ keycloakConfig.realm }}</div>
-        <div><strong>Client:</strong> {{ keycloakConfig.clientId }}</div>
-      </div>
-
-      <p v-if="isLoading">Dang khoi tao ket noi Keycloak...</p>
-      <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-
-      <div class="actions">
-        <button @click="login" :disabled="isLoading">Dang nhap</button>
-      </div>
-    </section>
-
-    <section class="card dashboard" v-else>
+  <main class="dashboard-page">
+    <section class="card dashboard">
       <div class="dashboard-header">
         <div>
           <h1>Dashboard</h1>
           <p class="desc">Xin chao {{ displayName }}, ban da dang nhap thanh cong.</p>
         </div>
-        <button class="secondary" @click="logout">Dang xuat</button>
+        <button class="secondary" @click="handleLogout">Dang xuat</button>
       </div>
 
       <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
@@ -195,12 +137,6 @@ onUnmounted(() => {
           <h3>User</h3>
           <p class="tile-value">{{ displayName }}</p>
           <p class="tile-sub">{{ parsedToken?.preferred_username ?? 'No username' }}</p>
-        </article>
-
-        <article class="tile">
-          <h3>Session</h3>
-          <p class="tile-value">{{ tokenDurationMinutes }}</p>
-          <p class="tile-sub">Issued: {{ issuedAt }}</p>
         </article>
 
         <article class="tile">
@@ -237,7 +173,7 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-.login-page {
+.dashboard-page {
   min-height: 100vh;
   display: grid;
   place-items: center;
@@ -258,13 +194,6 @@ onUnmounted(() => {
 .desc {
   margin-top: -8px;
   margin-bottom: 16px;
-}
-
-.config {
-  display: grid;
-  gap: 6px;
-  margin-bottom: 16px;
-  font-size: 14px;
 }
 
 .actions {
@@ -290,11 +219,6 @@ button {
 button.secondary {
   background: transparent;
   color: inherit;
-}
-
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
 }
 
 .error {
@@ -399,14 +323,7 @@ textarea {
 
   button.secondary {
     background: transparent;
-    color: #f2f3f8;
-    border-color: #f2f3f8;
-  }
-
-  textarea {
-    background: #11131a;
-    color: #f2f3f8;
-    border-color: #383a48;
+    color: inherit;
   }
 }
 </style>

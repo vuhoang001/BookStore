@@ -1,7 +1,8 @@
 ﻿using Aspire.ServiceDefaults;
 using BookStore.Catalog.Extensions;
 using BookStore.Catalog.Grpc.Services.Book;
-using BookStore.Catalog.Infrastructure;
+using BuildingBlocks.Chassis.Security.Extensions;
+using BuildingBlocks.Chassis.Security.Keycloaks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.AddApplicationService();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.AddDefaultAuthentication();
 builder.Services.AddLogging();
 
 var app = builder.Build();
@@ -25,6 +27,8 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+
+
 app.UseExceptionHandler();
 
 var apiVersionSet = app.NewApiVersionSet()
@@ -32,13 +36,15 @@ var apiVersionSet = app.NewApiVersionSet()
     .ReportApiVersions()
     .Build();
 
+app.UseMiddleware<KeycloakTokenIntrospectionMiddleware>();
+
+
 app.MapEndpoints(apiVersionSet);
 
 app.MapDefaultEndpoints();
 
 app.MapGrpcService<BookService>();
 app.MapGrpcHealthChecksService();
-
 
 
 app.Run();
